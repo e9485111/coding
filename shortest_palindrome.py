@@ -1,37 +1,30 @@
 class Solution:
   def isPalindrome(self, s):
-    if len(s) == 0:
-      return None
-    if len(s) == 1:
-      return s
-
-    left = 0
-    right = len(s)-1
-    while right > left:
-      if s[left] == '*':
-        s = list(s)
-        s[left] = s[right]
-        s = "".join(s)
-        right -= 1
-        left += 1
-      elif s[left] == s[right]:
-        right -= 1
-        left += 1
-      else:
-        return None
-    return s
+    i = 0
+    j = len(s)-1
+    while j > i:
+      if s[j] != s[i]:
+        return False
+      i += 1
+      j -= 1
+    return True
 
   # @param {string} s
   # @return {string}
   def shortestPalindrome(self, s):
-    ret = self.isPalindrome(s)
-    if ret:
-      return ret
-    for i in range(0,len(s)-1):
-      s = '*' + s
-      ret = self.isPalindrome(s)
-      if ret:
-        return ret
+    s = s[::-1]
+    if self.isPalindrome(s):
+      return s
+
+    max_len = len(s)-1
+    for i in range(1, max_len+1):
+      print i
+      tail = ''
+      for j in range(0,i):
+        tail = s[j] + tail
+      test = s + tail
+      if self.isPalindrome(test):
+        return test
 
 
 s = Solution()
